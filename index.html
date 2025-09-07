@@ -3,9 +3,702 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Addiction</title>
+    <title>Screen Addiction: The Digital Crisis in Bangladesh & The World</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F8F9FA;
+            color: #343A40;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .stat-number {
+            font-size: 4rem;
+            font-weight: 900;
+            line-height: 1;
+            color: #3357FF;
+        }
+        .flowchart-arrow {
+            position: relative;
+            padding-right: 2rem;
+        }
+        .flowchart-arrow::after {
+            content: '→';
+            position: absolute;
+            right: 0.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.5rem;
+            color: #FF5733;
+        }
+        /* Custom styles for the quiz */
+        .quiz-question {
+            transition: background-color 0.3s;
+        }
+        .quiz-question label:hover {
+            background-color: #eef2ff;
+        }
+        input[type="radio"]:checked + label {
+            background-color: #c7d2fe;
+            border-color: #6366f1;
+        }
+    </style>
 </head>
-<body>
-    <h1>Addiction</h1>
+<body class="antialiased">
+
+    <header class="bg-white shadow-md sticky top-0 z-10">
+        <div class="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8">
+            <h1 class="text-2xl md:text-3xl font-bold text-center text-gray-800">Screen Addiction: A Digital Crisis</h1>
+            <p class="text-center text-gray-600 mt-1">Understanding the Impact in Bangladesh and Beyond</p>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto p-4 md:p-8">
+
+        <section id="intro" class="text-center mb-12 md:mb-16">
+            <h2 class="text-3xl md:text-4xl font-bold mb-4">
+                The Digital Flood is Here
+                <button class="ml-2 p-1 rounded-full bg-blue-500 text-white text-xs hover:bg-blue-600 transition-colors" onclick="ttsHandler('intro')">
+                    <span class="font-bold">♪</span> Listen
+                </button>
+            </h2>
+            <p class="max-w-3xl mx-auto text-lg text-gray-700">Our lives are increasingly online. While technology connects us, it also creates an unprecedented challenge: screen addiction. This phenomenon is reshaping societies globally and has a significant, growing impact within Bangladesh.</p>
+        </section>
+
+        <section id="global-context" class="mb-12 md:mb-16">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-8">
+                The Global Context
+                <button class="ml-2 p-1 rounded-full bg-blue-500 text-white text-xs hover:bg-blue-600 transition-colors" onclick="ttsHandler('global-context')">
+                    <span class="font-bold">♪</span> Listen
+                </button>
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-bold text-center mb-4">Global Average Daily Screen Time</h3>
+                    <div class="text-center">
+                        <p class="stat-number">6h 58m</p>
+                        <p class="text-lg text-gray-600 mt-2">The average person spends nearly a third of their waking hours looking at a screen.</p>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-bold text-center mb-4">Internet Users: World vs. Bangladesh</h3>
+                    <p class="text-center text-sm text-gray-600 mb-4">Bangladesh is a significant part of the global digital community, with a massive and growing online population.</p>
+                    <div class="chart-container h-64 md:h-auto">
+                        <canvas id="internetUsersChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="bangladesh-focus" class="mb-12 md:mb-16">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-8">
+                The Bangladeshi Digital Landscape
+                <button class="ml-2 p-1 rounded-full bg-blue-500 text-white text-xs hover:bg-blue-600 transition-colors" onclick="ttsHandler('bangladesh-focus')">
+                    <span class="font-bold">♪</span> Listen
+                </button>
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-bold text-center mb-4">Mobile Dominance in Bangladesh</h3>
+                    <p class="text-center text-sm text-gray-600 mb-4">The vast majority of Bangladeshis access the internet through mobile devices, making smartphone addiction a primary concern.</p>
+                    <div class="chart-container">
+                        <canvas id="bangladeshUsersChart"></canvas>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-bold text-center mb-4">Most Time-Consuming Platforms</h3>
+                    <p class="text-center text-sm text-gray-600 mb-4">Social media and video streaming platforms are the biggest drivers of screen time among the youth in Bangladesh.</p>
+                    <div class="chart-container">
+                        <canvas id="appUsageChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="hidden-costs" class="mb-12 md:mb-16">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-8">
+                The Hidden Costs of Too Much Screen Time
+                <button class="ml-2 p-1 rounded-full bg-blue-500 text-white text-xs hover:bg-blue-600 transition-colors" onclick="ttsHandler('hidden-costs')">
+                    <span class="font-bold">♪</span> Listen
+                </button>
+            </h2>
+            <p class="max-w-3xl mx-auto text-lg text-center text-gray-700 mb-10">Excessive screen use isn't just a bad habit; it has measurable negative effects on our mental, physical, and social health. The correlation is clear: more screen time is linked to higher health risks.</p>
+            <div class="bg-white rounded-lg shadow-md p-6 md:col-span-2">
+                 <h3 class="text-xl font-bold text-center mb-4">Risk of Anxiety vs. Daily Screen Hours</h3>
+                <div class="chart-container h-80">
+                    <canvas id="mentalHealthChart"></canvas>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
+                <div class="bg-white rounded-lg shadow-md p-6 text-center">
+                    <div class="text-4xl mb-3">🧠</div>
+                    <h4 class="font-bold text-lg mb-2">Mental Health</h4>
+                    <ul class="text-left list-disc list-inside text-gray-600">
+                        <li>Increased Depression</li>
+                        <li>Heightened Anxiety</li>
+                        <li>Attention Deficits</li>
+                        <li>Lower Self-Esteem</li>
+                    </ul>
+                </div>
+                <div class="bg-white rounded-lg shadow-md p-6 text-center">
+                    <div class="text-4xl mb-3">👁️</div>
+                    <h4 class="font-bold text-lg mb-2">Physical Health</h4>
+                    <ul class="text-left list-disc list-inside text-gray-600">
+                        <li>Digital Eye Strain</li>
+                        <li>Poor Sleep Quality</li>
+                        <li>Neck & Back Pain</li>
+                        <li>Sedentary Lifestyle</li>
+                    </ul>
+                </div>
+                <div class="bg-white rounded-lg shadow-md p-6 text-center">
+                    <div class="text-4xl mb-3">👥</div>
+                    <h4 class="font-bold text-lg mb-2">Social Well-being</h4>
+                    <ul class="text-left list-disc list-inside text-gray-600">
+                        <li>Social Isolation</li>
+                        <li>Poor Social Skills</li>
+                        <li>Fear of Missing Out</li>
+                        <li>Reduced Empathy</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="addiction-cycle" class="mb-12 md:mb-16">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-8">
+                How Addiction Takes Hold: The Dopamine Loop
+                <button class="ml-2 p-1 rounded-full bg-blue-500 text-white text-xs hover:bg-blue-600 transition-colors" onclick="ttsHandler('addiction-cycle')">
+                    <span class="font-bold">♪</span> Listen
+                </button>
+            </h2>
+            <p class="max-w-3xl mx-auto text-lg text-center text-gray-700 mb-10">Screen addiction is a behavioral cycle reinforced by dopamine, a chemical in our brain associated with pleasure and reward. Apps are designed to keep you in this loop.</p>
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <div class="flex flex-col md:flex-row justify-around items-center text-center">
+                    <div class="flex items-center mb-4 md:mb-0">
+                        <div class="p-4 rounded-lg bg-blue-100">
+                            <h4 class="font-bold">1. Trigger</h4>
+                            <p class="text-sm">Feeling bored, lonely, or anxious</p>
+                        </div>
+                        <span class="text-4xl text-gray-400 mx-4 hidden md:block">→</span>
+                    </div>
+                    <div class="flex items-center mb-4 md:mb-0">
+                        <div class="p-4 rounded-lg bg-orange-100">
+                            <h4 class="font-bold">2. Action</h4>
+                            <p class="text-sm">Open phone, scroll social media feed</p>
+                        </div>
+                        <span class="text-4xl text-gray-400 mx-4 hidden md:block">→</span>
+                    </div>
+                    <div class="flex items-center mb-4 md:mb-0">
+                        <div class="p-4 rounded-lg bg-green-100">
+                             <h4 class="font-bold">3. Reward</h4>
+                             <p class="text-sm">Get a like, see a funny video (dopamine hit)</p>
+                        </div>
+                        <span class="text-4xl text-gray-400 mx-4 hidden md:block">→</span>
+                    </div>
+                    <div class="flex items-center">
+                        <div class="p-4 rounded-lg bg-pink-100">
+                            <h4 class="font-bold">4. Investment</h4>
+                            <p class="text-sm">You post, comment, or follow to get more rewards</p>
+                        </div>
+                    </div>
+                </div>
+                 <div class="text-center mt-6">
+                    <span class="text-5xl text-gray-400">↻</span>
+                    <p class="font-bold text-gray-600">The cycle repeats and strengthens.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="self-assessment-quiz" class="mb-12 md:mb-16">
+            <div class="bg-white p-8 rounded-lg shadow-md">
+                <h2 class="text-3xl font-bold text-center mb-2">Check Your Digital Habits</h2>
+                <p class="text-center text-gray-600 mb-8">Answer these questions honestly to get a snapshot of your screen time habits.</p>
+                <div id="quiz-container" class="space-y-6"></div>
+                <div class="text-center mt-8">
+                    <button id="submitQuizBtn" class="px-6 py-3 rounded-full bg-indigo-600 text-white font-bold hover:bg-indigo-700 transition-colors">See My Results</button>
+                </div>
+                <div id="quiz-results" class="mt-8 text-center hidden">
+                    <h3 class="text-2xl font-bold mb-4">Your Result</h3>
+                    <div class="w-full bg-gray-200 rounded-full h-4 mb-2">
+                        <div id="quiz-score-bar" class="h-4 rounded-full transition-all duration-500" style="width: 0%;"></div>
+                    </div>
+                    <p id="quiz-result-text" class="text-lg font-semibold"></p>
+                    <p id="quiz-result-description" class="mt-2 max-w-2xl mx-auto"></p>
+                </div>
+            </div>
+        </section>
+
+        <section id="action-plan" class="mb-12 md:mb-16">
+            <div class="bg-blue-50 p-8 rounded-lg shadow-md text-center">
+                <h2 class="text-3xl font-bold mb-4 text-blue-800">✨ Your Personalized Action Plan ✨</h2>
+                <p class="text-lg text-blue-700 mb-6">Let a powerful LLM help you create a custom plan to reduce screen time. Tell us about your main struggle below.</p>
+                <div class="max-w-xl mx-auto">
+                    <textarea id="planInput" rows="4" class="w-full p-4 rounded-lg border-2 border-blue-200 focus:outline-none focus:border-blue-400 text-gray-800" placeholder="e.g., 'I can't stop scrolling social media late at night' or 'I get distracted by my phone when I'm working'"></textarea>
+                    <button id="generatePlanBtn" class="mt-4 px-6 py-3 rounded-full bg-blue-600 text-white font-bold hover:bg-blue-700 transition-colors">
+                        ✨ Generate My Plan ✨
+                    </button>
+                    <div id="planLoading" class="mt-4 text-center text-blue-600 font-semibold hidden">
+                        Generating your plan...
+                    </div>
+                    <div id="planOutput" class="mt-6 text-left p-6 bg-white rounded-lg shadow-inner">
+                        <p class="text-gray-500">Your personalized plan will appear here.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="solutions">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-8">
+                Reclaiming Your Time and Attention
+                <button class="ml-2 p-1 rounded-full bg-blue-500 text-white text-xs hover:bg-blue-600 transition-colors" onclick="ttsHandler('solutions')">
+                    <span class="font-bold">♪</span> Listen
+                </button>
+            </h2>
+            <p class="max-w-3xl mx-auto text-lg text-center text-gray-700 mb-10">Breaking the cycle is possible. It requires conscious effort and building healthier habits. Here are proven strategies to regain control.</p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="font-bold text-xl mb-3 text-green-600">Mindful Tech Use</h3>
+                    <ul class="space-y-2 list-disc list-inside text-gray-700">
+                        <li><strong>Turn Off Notifications:</strong> Disable non-essential alerts to reduce distractions.</li>
+                        <li><strong>Track Your Screen Time:</strong> Use built-in phone features to see where your time goes.</li>
+                        <li><strong>Go Grayscale:</strong> Making your screen black and white makes it less appealing.</li>
+                        <li><strong>Be Intentional:</strong> Pick up your phone with a specific task in mind, not out of habit.</li>
+                    </ul>
+                </div>
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="font-bold text-xl mb-3 text-blue-600">Create Tech-Free Zones</h3>
+                     <ul class="space-y-2 list-disc list-inside text-gray-700">
+                        <li><strong>No Phones in the Bedroom:</strong> Use a real alarm clock. This improves sleep quality significantly.</li>
+                        <li><strong>Screen-Free Meals:</strong> Focus on food and conversation during mealtimes.</li>
+                        <li><strong>Designate "No-Phone" Time:</strong> Set aside an hour or two each evening for offline activities.</li>
+                    </ul>
+                </div>
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="font-bold text-xl mb-3 text-orange-600">Find Offline Alternatives</h3>
+                     <ul class="space-y-2 list-disc list-inside text-gray-700">
+                        <li><strong>Rediscover Hobbies:</strong> Pick up reading, drawing, music, or gardening.</li>
+                        <li><strong>Get Active:</strong> Go for a walk, play a sport, or visit a park. Physical activity is a powerful mood booster.</li>
+                        <li><strong>Connect in Person:</strong> Schedule time to meet friends and family face-to-face.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-gray-800 text-white mt-16">
+        <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 text-center">
+            <p class="text-lg font-bold">A Brighter, Balanced Future is Possible.</p>
+            <p class="mt-2 text-gray-400">Use technology as a tool, not a trap. Take the first step today.</p>
+        </div>
+    </footer>
+
+    <script>
+        const wrapLabel = (label, maxLength = 16) => {
+            if (typeof label !== 'string' || label.length <= maxLength) {
+                return label;
+            }
+            const words = label.split(' ');
+            const lines = [];
+            let currentLine = '';
+            for (const word of words) {
+                if ((currentLine + ' ' + word).trim().length > maxLength) {
+                    lines.push(currentLine.trim());
+                    currentLine = word;
+                } else {
+                    currentLine = (currentLine + ' ' + word).trim();
+                }
+            }
+            if (currentLine) {
+                lines.push(currentLine.trim());
+            }
+            return lines;
+        };
+        
+        const tooltipTitleCallback = (tooltipItems) => {
+            const item = tooltipItems[0];
+            let label = item.chart.data.labels[item.dataIndex];
+            if (Array.isArray(label)) {
+                return label.join(' ');
+            } else {
+                return label;
+            }
+        };
+
+        const chartColors = {
+            blue: '#3357FF',
+            orange: '#FF5733',
+            green: '#33FF57',
+            pink: '#FF33A1',
+            yellow: '#F1C40F'
+        };
+
+        const commonChartOptions = {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                    labels: {
+                        padding: 20,
+                        font: { size: 12 }
+                    }
+                },
+                tooltip: {
+                    callbacks: {
+                        title: tooltipTitleCallback
+                    }
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        font: { size: 10 }
+                    }
+                },
+                x: {
+                    ticks: {
+                        font: { size: 10 }
+                    }
+                }
+            }
+        };
+        
+        const internetUsersData = {
+            labels: ['World Population', 'Bangladesh Population'],
+            datasets: [{
+                label: 'Internet Users (in Billions/Millions)',
+                data: [5.4, 135],
+                backgroundColor: [chartColors.blue, chartColors.orange],
+                borderColor: ['#FFFFFF', '#FFFFFF'],
+                borderWidth: 2
+            }]
+        };
+
+        new Chart(document.getElementById('internetUsersChart'), {
+            type: 'bar',
+            data: {
+                 labels: ['World (Billions)', 'Bangladesh (Millions)'],
+                 datasets: internetUsersData.datasets
+            },
+            options: { ...commonChartOptions }
+        });
+
+        const bangladeshUsersData = {
+            labels: ['Mobile Internet Users', 'Broadband Users'],
+            datasets: [{
+                data: [125, 10],
+                backgroundColor: [chartColors.blue, chartColors.yellow],
+                hoverOffset: 4
+            }]
+        };
+
+        new Chart(document.getElementById('bangladeshUsersChart'), {
+            type: 'doughnut',
+            data: bangladeshUsersData,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                     legend: { position: 'bottom' },
+                     tooltip: { callbacks: { title: tooltipTitleCallback } }
+                }
+            }
+        });
+
+        const appUsageDataRaw = {
+            'Facebook': 4.5,
+            'YouTube': 3.8,
+            'TikTok': 2.5,
+            'Online Gaming': 2.1,
+            'Messaging Apps': 1.5,
+        };
+
+        const sortedAppUsage = Object.entries(appUsageDataRaw).sort(([, a], [, b]) => b - a);
+
+        new Chart(document.getElementById('appUsageChart'), {
+            type: 'bar',
+            data: {
+                labels: sortedAppUsage.map(item => wrapLabel(item[0])),
+                datasets: [{
+                    label: 'Average Daily Hours',
+                    data: sortedAppUsage.map(item => item[1]),
+                    backgroundColor: chartColors.pink,
+                    borderColor: '#FFFFFF',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                ...commonChartOptions,
+                indexAxis: 'y',
+                scales: {
+                    x: { beginAtZero: true },
+                    y: { ticks: { font: { size: 10 } } }
+                }
+            }
+        });
+        
+        const mentalHealthData = {
+            labels: ['< 1 Hour', '1-2 Hours', '2-4 Hours', '4-6 Hours', '> 6 Hours'],
+            datasets: [{
+                label: 'Reported Anxiety Symptoms (%)',
+                data: [8, 15, 25, 40, 55],
+                fill: true,
+                borderColor: chartColors.orange,
+                backgroundColor: 'rgba(255, 87, 51, 0.2)',
+                tension: 0.4
+            }]
+        };
+
+        new Chart(document.getElementById('mentalHealthChart'), {
+            type: 'line',
+            data: mentalHealthData,
+            options: { ...commonChartOptions }
+        });
+
+        const pcmToWav = (pcmData, sampleRate) => {
+            const numChannels = 1;
+            const bytesPerSample = 2;
+            const pcmLength = pcmData.length;
+            const buffer = new ArrayBuffer(44 + pcmLength * bytesPerSample);
+            const view = new DataView(buffer);
+
+            const writeString = (view, offset, string) => {
+                for (let i = 0; i < string.length; i++) {
+                    view.setUint8(offset + i, string.charCodeAt(i));
+                }
+            };
+            
+            writeString(view, 0, 'RIFF');
+            view.setUint32(4, 36 + pcmLength * bytesPerSample, true);
+            writeString(view, 8, 'WAVE');
+            writeString(view, 12, 'fmt ');
+            view.setUint32(16, 16, true);
+            view.setUint16(20, 1, true);
+            view.setUint16(22, numChannels, true);
+            view.setUint32(24, sampleRate, true);
+            view.setUint32(28, sampleRate * numChannels * bytesPerSample, true);
+            view.setUint16(32, numChannels * bytesPerSample, true);
+            view.setUint16(34, 16, true);
+            writeString(view, 36, 'data');
+            view.setUint32(40, pcmLength * bytesPerSample, true);
+            
+            for (let i = 0; i < pcmLength; i++) {
+                view.setInt16(44 + i * bytesPerSample, pcmData[i], true);
+            }
+            
+            return new Blob([view], { type: 'audio/wav' });
+        };
+
+        const base64ToArrayBuffer = (base64) => {
+            const binaryString = atob(base64);
+            const len = binaryString.length;
+            const bytes = new Uint8Array(len);
+            for (let i = 0; i < len; i++) {
+                bytes[i] = binaryString.charCodeAt(i);
+            }
+            return bytes.buffer;
+        };
+
+        const ttsHandlers = {};
+        
+        document.querySelectorAll('section').forEach(section => {
+            const sectionId = section.id;
+            const content = section.innerText;
+            ttsHandlers[sectionId] = async () => {
+                try {
+                    const payload = {
+                        contents: [{
+                            parts: [{ text: content }]
+                        }],
+                        generationConfig: {
+                            responseModalities: ["AUDIO"],
+                            speechConfig: {
+                                voiceConfig: {
+                                    prebuiltVoiceConfig: { voiceName: "Kore" }
+                                }
+                            }
+                        },
+                        model: "gemini-2.5-flash-preview-tts"
+                    };
+                    const apiKey = "";
+                    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-tts:generateContent?key=${apiKey}`;
+                    
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+                    
+                    const result = await response.json();
+                    const part = result?.candidates?.[0]?.content?.parts?.[0];
+                    const audioData = part?.inlineData?.data;
+                    const mimeType = part?.inlineData?.mimeType;
+
+                    if (audioData && mimeType && mimeType.startsWith("audio/")) {
+                        const sampleRate = parseInt(mimeType.match(/rate=(\d+)/)[1], 10);
+                        const pcmData = base64ToArrayBuffer(audioData);
+                        const pcm16 = new Int16Array(pcmData);
+                        const wavBlob = pcmToWav(pcm16, sampleRate);
+                        const audioUrl = URL.createObjectURL(wavBlob);
+                        const audio = new Audio(audioUrl);
+                        audio.play();
+                    }
+                } catch (error) {
+                    console.error('TTS API error:', error);
+                }
+            };
+        });
+        
+        window.ttsHandler = (sectionId) => {
+            if (ttsHandlers[sectionId]) {
+                ttsHandlers[sectionId]();
+            }
+        };
+
+        const generatePlanBtn = document.getElementById('generatePlanBtn');
+        const planInput = document.getElementById('planInput');
+        const planOutput = document.getElementById('planOutput');
+        const planLoading = document.getElementById('planLoading');
+
+        generatePlanBtn.addEventListener('click', async () => {
+            const userStruggle = planInput.value.trim();
+            if (!userStruggle) {
+                planOutput.innerHTML = '<p class="text-red-500">Please describe your struggle to get a plan.</p>';
+                return;
+            }
+
+            planLoading.classList.remove('hidden');
+            planOutput.innerHTML = '';
+            
+            try {
+                const systemPrompt = "You are a helpful coach for reducing screen time. Provide a step-by-step action plan to help the user. The plan should be highly specific, actionable, and address their stated struggle. Use a positive and encouraging tone. Use markdown to format the plan with numbered steps and bullet points where appropriate.";
+                const userQuery = `My biggest struggle is: ${userStruggle}. Generate a personalized action plan for me.`;
+                const apiKey = "";
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+                
+                const payload = {
+                    contents: [{ parts: [{ text: userQuery }] }],
+                    systemInstruction: {
+                        parts: [{ text: systemPrompt }]
+                    },
+                };
+
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                
+                const result = await response.json();
+                const text = result?.candidates?.[0]?.content?.parts?.[0]?.text || 'Could not generate a plan. Please try again.';
+                planOutput.innerHTML = `<div class="prose max-w-none">${marked.parse(text)}</div>`;
+            } catch (error) {
+                console.error('LLM API error:', error);
+                planOutput.innerHTML = '<p class="text-red-500">An error occurred while generating your plan. Please try again.</p>';
+            } finally {
+                planLoading.classList.add('hidden');
+            }
+        });
+        
+        const quizQuestions = [
+            { question: "How often do you check your phone within 5 minutes of waking up?", options: ["Never", "Sometimes", "Often", "Almost Always"] },
+            { question: "Do you feel anxious or irritable when you can't access your phone or the internet?", options: ["Never", "Sometimes", "Often", "Almost Always"] },
+            { question: "Has your screen time interfered with your sleep quality?", options: ["Never", "Sometimes", "Often", "Almost Always"] },
+            { question: "Do you find yourself scrolling mindlessly without a specific purpose?", options: ["Never", "Sometimes", "Often", "Almost Always"] },
+            { question: "Have you tried to cut down on your screen time but failed?", options: ["Never", "Sometimes", "Often", "Almost Always"] }
+        ];
+
+        const quizContainer = document.getElementById('quiz-container');
+        quizQuestions.forEach((q, index) => {
+            const questionDiv = document.createElement('div');
+            questionDiv.className = 'quiz-question border border-gray-200 p-4 rounded-lg';
+            let optionsHTML = q.options.map((option, i) => `
+                <div class="relative">
+                    <input type="radio" id="q${index}o${i}" name="q${index}" value="${i}" class="sr-only">
+                    <label for="q${index}o${i}" class="block w-full text-left p-3 rounded-md border border-gray-300 cursor-pointer transition-colors">${option}</label>
+                </div>
+            `).join('');
+            questionDiv.innerHTML = `
+                <p class="font-semibold mb-3">${index + 1}. ${q.question}</p>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-3">${optionsHTML}</div>
+            `;
+            quizContainer.appendChild(questionDiv);
+        });
+
+        const submitQuizBtn = document.getElementById('submitQuizBtn');
+        submitQuizBtn.addEventListener('click', () => {
+            let score = 0;
+            const totalQuestions = quizQuestions.length;
+            let answeredQuestions = 0;
+
+            for (let i = 0; i < totalQuestions; i++) {
+                const selected = document.querySelector(`input[name="q${i}"]:checked`);
+                if (selected) {
+                    score += parseInt(selected.value);
+                    answeredQuestions++;
+                }
+            }
+
+            if (answeredQuestions < totalQuestions) {
+                alert('Please answer all questions to see your results.');
+                return;
+            }
+            
+            const maxScore = totalQuestions * 3;
+            const scorePercentage = (score / maxScore) * 100;
+            
+            const resultsDiv = document.getElementById('quiz-results');
+            const scoreBar = document.getElementById('quiz-score-bar');
+            const resultText = document.getElementById('quiz-result-text');
+            const resultDescription = document.getElementById('quiz-result-description');
+
+            scoreBar.style.width = `${scorePercentage}%`;
+            
+            if (scorePercentage <= 33) {
+                scoreBar.className = 'h-4 rounded-full bg-green-500';
+                resultText.textContent = 'Healthy Habits';
+                resultText.className = 'text-lg font-semibold text-green-700';
+                resultDescription.textContent = "Your screen habits appear to be balanced. You're using technology as a tool, not letting it control you. Keep up the great work!";
+            } else if (scorePercentage <= 66) {
+                scoreBar.className = 'h-4 rounded-full bg-yellow-500';
+                resultText.textContent = 'At-Risk Behavior';
+                resultText.className = 'text-lg font-semibold text-yellow-700';
+                resultDescription.textContent = "Your screen use is starting to show signs of dependency. It might be beneficial to be more mindful of your habits. Consider using the action plan generator below for some personalized tips.";
+            } else {
+                scoreBar.className = 'h-4 rounded-full bg-red-500';
+                resultText.textContent = 'High Risk of Dependency';
+                resultText.className = 'text-lg font-semibold text-red-700';
+                resultDescription.textContent = "Your digital habits indicate a strong dependency that could be negatively impacting your well-being. It's a great time to take proactive steps. We highly recommend using the personalized action plan generator below to get started.";
+            }
+            resultsDiv.classList.remove('hidden');
+            resultsDiv.scrollIntoView({ behavior: 'smooth' });
+        });
+
+
+        window.onload = function() {
+            const script = document.createElement('script');
+            script.src = 'https://cdn.jsdelivr.net/npm/marked/marked.min.js';
+            document.head.appendChild(script);
+        };
+
+    </script>
 </body>
 </html>
